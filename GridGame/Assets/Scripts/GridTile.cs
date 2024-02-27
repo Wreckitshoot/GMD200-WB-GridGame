@@ -24,6 +24,10 @@ public class GridTile : MonoBehaviour
         GridManager.OnTileHoverExit(this);
         resetColour();
     }
+    private void OnMouseDown()
+    {
+        GridManager.OnTileSelected(this);
+    }
     public void setColour(Color colour)
     {
         _spriteRenderer.color = colour;
