@@ -15,6 +15,7 @@ public class GridManager : MonoBehaviour
 
     [SerializeField] private GridTile tilePrefab;
     [SerializeField] private TextMeshProUGUI text;
+    private GridTile[] tiles;
     private void Awake()
     {
         InitGrid();
@@ -22,6 +23,7 @@ public class GridManager : MonoBehaviour
     }
     public void InitGrid()
     {
+        tiles = new GridTile[numRows*numCols];
         for (int y = 0; y < numRows; y++)
         {
             for(int x = 0; x < numCols; x++)
@@ -32,6 +34,7 @@ public class GridManager : MonoBehaviour
                 tile.name = $"Tile_{x}_{y}";
                 tile.GridManager = this;
                 tile.gridCoords = new Vector2Int(x, y);
+                tiles[y*numCols + x] = tile;
             }
         }
     }
@@ -46,5 +49,15 @@ public class GridManager : MonoBehaviour
     public void OnTileSelected(GridTile gridTile)
     {
         TileSelected?.Invoke(gridTile);
+    }
+
+    internal GridTile GetTile(Vector2Int pos)
+    {
+        if(pos.x < 0 || pos.x >= numCols || pos.y < 0 || pos.y >= numRows)
+        {
+            Debug.LogError($"Invalid Coordinate{pos}");
+            return null;
+        }
+        return tiles[pos.y * numCols + pos.x];
     }
 }

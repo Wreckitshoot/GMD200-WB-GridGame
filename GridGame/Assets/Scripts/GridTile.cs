@@ -17,12 +17,12 @@ public class GridTile : MonoBehaviour
     private void OnMouseOver()
     {
         GridManager.OnTileHoverEnter(this);
-        setColour(Color.black);
+        //setColour(Color.black);
     }
     private void OnMouseExit()
     {
         GridManager.OnTileHoverExit(this);
-        resetColour();
+       // resetColour();
     }
     private void OnMouseDown()
     {
